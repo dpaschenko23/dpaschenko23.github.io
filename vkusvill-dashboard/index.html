@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВкусВилл · Функциональное питание — дорожная карта исследования</title>
+<style>
+  :root{
+    --bg:#f6f5f1;
+    --surface:#ffffff;
+    --ink:#15161c;
+    --ink-soft:#5a5b66;
+    --ink-faint:#93949e;
+    --line:#e7e4dd;
+    --line-soft:#efece5;
+    --accent:#2f9e44;
+    --accent-dark:#1f7a34;
+    --accent-soft:#e3f6e8;
+    --accent-soft2:#eefbf1;
+    --green:#1f9d55;
+    --green-soft:#e3f6ea;
+    --amber:#e08a1e;
+    --amber-soft:#fdf1de;
+    --gray:#9a9aa2;
+    --gray-soft:#eeeef1;
+    --blue:#2f6fed;
+    --blue-soft:#e8f0ff;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(20,20,25,.04), 0 8px 24px -12px rgba(20,20,25,.12);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Inter",Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);}
+  body{line-height:1.5;-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+  ::selection{background:var(--accent-soft);color:var(--accent-dark);}
+
+  /* ---------- HEADER ---------- */
+  header.hero{
+    position:relative;background:radial-gradient(1100px 420px at 12% -10%, #23202a 0%, #15161c 55%), #15161c;
+    color:#fff;overflow:hidden;padding-bottom:46px;
+  }
+  header.hero::after{
+    content:"";position:absolute;right:-120px;top:-160px;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--accent) 0%, rgba(47,158,68,.15) 45%, transparent 70%);
+    filter:blur(2px);opacity:.55;pointer-events:none;
+  }
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:24px 0 0;position:relative;z-index:2;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em;}
+  .brand .mark{
+    width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#6fcf87);
+    display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#15161c;
+  }
+  .brand .name{font-size:15px;}
+  .brand .name small{display:block;font-weight:400;color:#b9b9c2;font-size:11px;letter-spacing:.03em;margin-top:1px;}
+  .for-client{font-size:12px;color:#c8c8d1;border:1px solid #34343e;padding:6px 12px;border-radius:99px;letter-spacing:.02em;}
+  .for-client b{color:#fff;font-weight:600;}
+
+  .hero-body{position:relative;z-index:2;padding-top:54px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--accent);background:rgba(47,158,68,.12);
+    padding:6px 12px;border-radius:99px;margin-bottom:18px;
+  }
+  h1{font-size:38px;line-height:1.15;margin:0 0 12px;font-weight:700;max-width:760px;letter-spacing:-.01em;}
+  .hero-sub{font-size:16px;color:#c6c6cf;max-width:640px;margin:0 0 30px;}
+
+  /* ---------- STICKY NAV ---------- */
+  nav.subnav{position:sticky;top:0;z-index:50;background:rgba(246,245,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .subnav-inner{display:flex;align-items:center;gap:18px;padding:12px 28px;max-width:1180px;margin:0 auto;flex-wrap:wrap;}
+  .toolbar{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap;}
+  .iconbtn{border:1px solid var(--line);background:#fff;color:var(--ink-soft);font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;}
+  .iconbtn:hover{border-color:var(--ink-faint);color:var(--ink);}
+
+  /* ---------- SECTIONS ---------- */
+  main{padding:44px 0 30px;}
+  section.block{margin-bottom:22px;}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);}
+  .pad{padding:26px 28px;}
+
+  .intro-grid{margin-bottom:34px;}
+  h2.h{font-size:15px;font-weight:700;margin:0 0 12px;letter-spacing:.01em;}
+  .intro-grid p{font-size:14.5px;color:var(--ink-soft);margin:0 0 10px;}
+
+  /* timeline — компактная доска по этапам (колонки = периоды) */
+  .timeline-wrap{margin-bottom:34px;}
+  .tl-board{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x proximity;}
+  .tl-board::-webkit-scrollbar{height:6px;}
+  .tl-board::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px;}
+  .tl-col{flex:0 0 190px;display:flex;flex-direction:column;gap:9px;scroll-snap-align:start;}
+  .tl-col-head{display:flex;align-items:center;padding:0 2px;}
+  .tl-col-badge{font-size:10.5px;font-weight:700;color:var(--ink-faint);background:var(--gray-soft);padding:3px 9px;border-radius:99px;letter-spacing:.02em;}
+  .tl-col-badge.today{background:var(--accent-soft);color:var(--accent-dark);}
+  .tl-col-badge.today::before{content:"● ";}
+  .tl-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 15px;box-shadow:var(--shadow);
+    display:block;text-decoration:none;color:inherit;cursor:pointer;transition:transform .15s,border-color .15s;}
+  .tl-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tl-card.today{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft2), var(--shadow);}
+  .tl-status-pill{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;margin-bottom:10px;}
+  .tl-title{font-size:13.5px;font-weight:700;line-height:1.35;margin-bottom:6px;}
+  .tl-desc{font-size:12px;color:var(--ink-soft);line-height:1.42;margin-bottom:11px;}
+  .tl-tag{display:inline-block;font-size:10.5px;font-weight:600;color:var(--accent-dark);background:var(--accent-soft);padding:3px 8px;border-radius:7px;margin-bottom:11px;}
+  .tl-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--ink-faint);padding-top:10px;border-top:1px dashed var(--line-soft);}
+  .tl-range{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  @media (max-width:860px){.tl-col{flex-basis:74vw;}}
+
+  /* stage sections */
+  .stage{scroll-margin-top:78px;}
+  .stage-head{padding:26px 28px 0;}
+  .stage-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:6px;}
+  .stage-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .stage-title{font-size:21px;font-weight:700;margin:0;letter-spacing:-.005em;}
+  .stage-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;}
+  .pill{font-size:12px;font-weight:600;padding:5px 11px;border-radius:99px;border:1px solid var(--line);color:var(--ink-soft);background:#fafaf8;display:inline-flex;align-items:center;gap:6px;}
+  .pill.due{font-weight:700;}
+  .pill.due.ok{color:var(--green);background:var(--green-soft);border-color:transparent;}
+  .pill.due.warn{color:var(--amber);background:var(--amber-soft);border-color:transparent;}
+  .pill.due.late{color:var(--accent-dark);background:var(--accent-soft);border-color:transparent;}
+
+  select.status-select{
+    appearance:none;-webkit-appearance:none;font:inherit;font-size:12.5px;font-weight:700;padding:7px 30px 7px 12px;border-radius:99px;
+    border:1px solid transparent;cursor:pointer;background-repeat:no-repeat;background-position:right 10px center;background-size:9px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23888'/></svg>");
+  }
+  .status-not_started{background-color:var(--gray-soft);color:#63636c;}
+  .status-in_progress{background-color:var(--amber-soft);color:var(--amber);}
+  .status-review{background-color:var(--blue-soft);color:var(--blue);}
+  .status-done{background-color:var(--green-soft);color:var(--green);}
+
+  .stage-body{padding:20px 28px 28px;}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .col h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-faint);margin:0 0 12px;font-weight:700;}
+
+  /* задачи и результаты — компактные раскрывающиеся «бабблы» вместо сплошного текста */
+  .bubble-list{display:flex;flex-direction:column;gap:8px;}
+  .bubble{border:1px solid var(--line);border-radius:12px;background:#fafaf8;overflow:hidden;transition:border-color .15s,background .15s;}
+  .bubble.open{border-color:var(--accent);background:#fff;box-shadow:var(--shadow);}
+  .bubble-head{width:100%;display:flex;align-items:center;gap:10px;padding:11px 13px;background:none;border:none;cursor:pointer;font:inherit;text-align:left;color:inherit;}
+  .bubble-dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--gray);}
+  .bubble-dot.status-not_started{background:var(--gray);}
+  .bubble-dot.status-in_progress{background:var(--amber);}
+  .bubble-dot.status-review{background:var(--blue);}
+  .bubble-dot.status-done{background:var(--green);}
+  .bubble-title{flex:1;font-size:13.3px;font-weight:600;color:var(--ink);line-height:1.4;}
+  .bubble-chevron{flex:none;font-size:10px;color:var(--ink-faint);transition:transform .15s;}
+  .bubble.open .bubble-chevron{transform:rotate(180deg);}
+  .bubble-body{display:none;padding:2px 14px 16px 31px;flex-direction:column;gap:10px;}
+  .bubble.open .bubble-body{display:flex;}
+  .bubble-row{font-size:12.3px;color:var(--ink-soft);display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .bubble-row b{color:var(--ink);font-weight:700;}
+  .bubble-desc{font-size:13.3px;color:#2b2c33;line-height:1.55;}
+  .bubble-status{padding:5px 26px 5px 10px;font-size:12px;}
+  .col.results .bubble{background:#fafffc;}
+  .col.results .bubble.open{border-color:var(--green);}
+
+  .stage + .stage{margin-top:16px;}
+
+  /* footer */
+  footer{background:#15161c;color:#c7c7d1;padding:40px 0 30px;margin-top:50px;}
+  .foot-inner{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px;}
+  footer .brand .name{color:#fff;}
+  .foot-links{display:flex;gap:22px;font-size:13px;flex-wrap:wrap;}
+  .foot-links a{text-decoration:none;color:#c7c7d1;}
+  .foot-links a:hover{color:#fff;}
+  .foot-bottom{margin-top:26px;padding-top:20px;border-top:1px solid #2a2a33;font-size:12px;color:#7c7c86;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:#15161c;color:#fff;font-size:13px;font-weight:600;
+    padding:11px 18px;border-radius:99px;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.25s;z-index:200;display:flex;align-items:center;gap:8px;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ---------- STAGE DETAIL MODAL ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(21,22,28,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto;z-index:300;}
+  .modal-overlay.show{display:flex;}
+  .modal{background:var(--surface);border-radius:var(--radius);max-width:820px;width:100%;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative;margin:auto;}
+  .modal-close{position:absolute;top:16px;right:16px;border:none;background:var(--gray-soft);color:var(--ink-soft);width:32px;height:32px;border-radius:50%;font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;font-family:inherit;}
+  .modal-close:hover{background:var(--line);color:var(--ink);}
+  .modal-body{padding:44px 0 0;}
+  .modal-body .stage-head{padding:0 28px;}
+  .modal-body .stage-body{padding:20px 28px 28px;}
+  .tl-card{outline:none;}
+  .tl-card:focus-visible{box-shadow:0 0 0 2px var(--accent);}
+
+  /* ---------- SHARED SYNC ---------- */
+  .sync-pill{font-size:11.5px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--green-soft);color:var(--green);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+  .sync-pill.offline{background:var(--gray-soft);color:#63636c;}
+  .sync-pill .sync-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex:none;}
+
+  @media (max-width:860px){
+    .intro-grid{grid-template-columns:1fr;}
+    .cols{grid-template-columns:1fr;}
+    h1{font-size:28px;}
+  }
+  @media print{
+    nav.subnav,.toolbar,.iconbtn,.toast,.status-select{display:none !important;}
+    body{background:#fff;}
+    header.hero{background:#15161c !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .card{box-shadow:none;break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap topbar">
+    <div class="brand">
+      <div class="mark">6S</div>
+      <div class="name">6SNS</div>
+    </div>
+    <div class="for-client">Клиент: <b>ВкусВилл</b></div>
+  </div>
+  <div class="wrap hero-body">
+    <div class="eyebrow">Дорожная карта проекта</div>
+    <h1>Функциональное питание: глобальный рынок и применимость для ВкусВилл</h1>
+    <p class="hero-sub">Исследование категории functional food на ключевых рынках (США, Великобритания, Европа, Япония, Китай) и оценка применимости мировых продуктовых моделей к сценариям ВкусВилл.</p>
+  </div>
+</header>
+
+<nav class="subnav">
+  <div class="subnav-inner">
+    <div class="toolbar">
+      <span class="sync-pill offline" id="syncPill" hidden><span class="sync-dot"></span><span id="syncPillText">Общий доступ выключен</span></span>
+      <button class="iconbtn" id="btnSync" title="Включить общий доступ к статусам задач">Включить общий доступ</button>
+      <button class="iconbtn" id="btnExport" title="Скачать статусы задач в JSON">Экспорт</button>
+      <button class="iconbtn" id="btnImport" title="Загрузить сохранённый JSON">Импорт</button>
+      <input type="file" id="fileImport" accept="application/json" style="display:none">
+      <button class="iconbtn" id="btnPrint" title="Версия для печати / PDF">Печать</button>
+      <button class="iconbtn" id="btnReset" title="Сбросить все изменения">Сброс</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <div class="intro-grid">
+    <div class="card"><div class="pad">
+      <h2 class="h">О проекте</h2>
+      <p>Цель — собрать целостную картину того, как категория «функциональное питание» устроена на разных рынках, выявить повторяющиеся продуктовые модели и оценить, какие из них применимы к трём сценариям ВкусВилл: использование естественного нутриентного состава, добавление натуральных функциональных ингредиентов и точечное обогащение премиксами.</p>
+    </div></div>
+  </div>
+
+  <div class="card timeline-wrap"><div class="pad">
+    <h2 class="h">Таймлайн этапов</h2>
+    <div class="tl-board" id="timelineTrack"></div>
+  </div></div>
+
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand">
+      <div class="mark">6S</div>
+      <div class="name">6SNS <small style="color:#8f8f9a">Вся актуальная аналитика для бизнеса</small></div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:sense@6-sense.pro">sense@6-sense.pro</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>Дашборд подготовлен для ВкусВилл · проект «Функциональное питание»</span>
+    <span id="footUpdated">Обновлено только что</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Сохранено</div>
+
+<div class="modal-overlay" id="stageModal">
+  <div class="modal">
+    <button type="button" class="modal-close" id="modalClose" title="Закрыть" aria-label="Закрыть">×</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+
+/* ======================= ДАННЫЕ ЭТАПОВ ======================= */
+// tasks/results разбиты на короткое имя (title) + подробное описание (desc),
+// чтобы в интерфейсе не было "полотна текста" — только компактные карточки.
+const STAGES = [
+  {
+    id:"s1", num:1, title:"Сбор информации",
+    short:"Методология, база кейсов и источников по рынкам.",
+    start:"2026-07-13", end:"2026-07-17",
+    dateLabel:"до 16–17 июля", deliverable:"Только база кейсов",
+    tasks:[
+      {id:"t1", title:"Определение категории функциональной еды и методология", desc:"Рабочее определение functional; различие между healthy, better-for-you, high-protein, fortified и functional; критерии включения/исключения продуктов, брендов, кампаний."},
+      {id:"t2", title:"Поисковые запросы и источники", desc:"Подготовить поисковые запросы, перечень баз и ритейлеров, систему уровней источников."},
+      {id:"t3", title:"Сбор крупных ритейлеров по типам", desc:"Private label, ЗОЖ-бренды, meal delivery, нутрициологические сервисы, маркетплейсы, подписочные модели. По каждому — страна, игрок, тип игрока, ссылка, краткое описание, наличие ready meals, наличие функциональной механики."},
+      {id:"t4", title:"Отбор кейсов 2023–2026", desc:"Отобрать свежие и масштабируемые кейсы 2023–2026 гг., с акцентом на случаи, где функциональность достигается за счёт натуральных ингредиентов, а не синтетических добавок."},
+      {id:"t5", title:"Проверка релевантности кейса", desc:"Проверка по 6 критериям: реальные готовые блюда; конкретная функциональная ценность; существование продукта в 2023–2026; доступные карточки/составы/упаковка; возможность оценить масштаб; целесообразность включения в анализ."}
+    ],
+    results:[
+      {id:"r1", title:"Методология определения функциональной еды", desc:"Рабочее определение, подходящее под задачу ВкусВилл (документ на 1–2 страницы на согласование)."},
+      {id:"r2", title:"Сводная таблица по рынкам", desc:"США, Великобритания, Европа (агрегированные отчёты), Япония, Китай: игрок, тип игрока, продукт, формат блюда, claim, ингредиент, цена, масштаб, источник, комментарий исследователя — общий взгляд на рынки."}
+    ]
+  },
+  {
+    id:"s2", num:2, title:"Оценка зрелости категории по рынкам",
+    short:"Матрица зрелости рынков по количественным и качественным критериям.",
+    start:"2026-07-18", end:"2026-07-21",
+    dateLabel:"20–21 июля", deliverable:"",
+    tasks:[
+      {id:"t1", title:"Сбор количественных данных", desc:"Доля functional ready meals в общей выручке (если доступно); темпы роста категории; другие количественные критерии."},
+      {id:"t2", title:"Методология оценки зрелости", desc:"Прописать, как оценивалась зрелость рынка и по каким критериям."},
+      {id:"t3", title:"Оценка рынков по критериям", desc:"Единая система количественных и качественных критериев: наличие категории в отчётах, отдельной полки, фильтров, повторяющихся claims, количество игроков, устойчивость ассортимента, коммерческие доказательства."}
+    ],
+    results:[
+      {id:"r1", title:"Матрица зрелости рынков", desc:"По единым критериям (методологию — уточнить и зафиксировать)."}
+    ]
+  },
+  {
+    id:"s3", num:3, title:"Типологизировать продуктовые модели",
+    short:"4–6 повторяющихся продуктовых моделей и их методология.",
+    start:"2026-07-22", end:"2026-07-24",
+    dateLabel:"23–24 июля", deliverable:"",
+    tasks:[
+      {id:"t1", title:"Выявление продуктовых моделей", desc:"Выявить 4–6 повторяющихся моделей по итогам сбора информации."},
+      {id:"t2", title:"Методология типологии моделей", desc:"Описание механики каждой модели; типичные продуктовые форматы; характерные ингредиенты; claims, характерные для конкретной продуктовой механики; распространённость модели; примеры игроков."}
+    ],
+    results:[
+      {id:"r1", title:"Типология продуктовых моделей", desc:"Принцип классификации и порог по числу кейсов — согласовать."}
+    ]
+  },
+  {
+    id:"s4", num:4, title:"Глубокий разбор кейсов и оценка бизнес-роли",
+    short:"Карточки ключевых кейсов и таблица анти-кейсов.",
+    start:"2026-07-27", end:"2026-07-29",
+    dateLabel:"28–29 июля", deliverable:"",
+    tasks:[
+      {id:"t1", title:"Оценка бизнес-роли продукта", desc:"Добавляют ли продукты выручку? служат ли пиар-ходом и продвижением? влияют ли на отношение потребителей к бренду?"},
+      {id:"t2", title:"Анти-кейсы", desc:"По каким признакам судить об успехе/неудаче и бизнес-роли, если данные о выручке не будут доступны."}
+    ],
+    results:[
+      {id:"r1", title:"Карточки ключевых кейсов", desc:"5–10 карточек: исходная гипотеза, модель запуска, развитие ассортимента, коммуникация, масштабирование или сворачивание, известные коммерческие результаты, ошибки и выводы для ВкусВилла (методология выбора — по релевантности, представленности продуктовой модели, обучающей ценности)."},
+      {id:"r2", title:"Таблица анти-кейсов", desc:"Методология определения анти-кейса."}
+    ]
+  },
+  {
+    id:"s5", num:5, title:"Анализ маркетинговых подходов, позиционирования и ценности для потребителя",
+    short:"Позиционирование, claims, сервисы и коммуникация брендов.",
+    start:"2026-07-30", end:"2026-07-31",
+    dateLabel:"31 июля", deliverable:"",
+    tasks:[
+      {id:"t1", title:"Позиционирование и сервисы", desc:"Позиционирование, упаковка, маркировка, сервисы, программы лояльности, интеграции и доказательства потребительского спроса."},
+      {id:"t2", title:"Форматы и claims", desc:"Как сформулирован claim, где размещён, чем подтверждён и как визуально подан; анализ коммуникации."},
+      {id:"t3", title:"Сервисы и интеграции", desc:"Какие сервисы предоставляют клиентам игроки в сегменте функционального питания? Есть ли интеграции с приложениями о здоровье, медицинскими анализами и т.п.?"}
+    ],
+    results:[
+      {id:"r1", title:"Таблица claims и коммуникационных подходов", desc:"Как бренды преподносят продукты и как взаимодействуют с потребителем."}
+    ]
+  },
+  {
+    id:"s6", num:6, title:"Применимость для ВкусВилл",
+    short:"Матрица применимости мировых моделей к трём сценариям ВкусВилл.",
+    start:"2026-08-01", end:"2026-08-03",
+    dateLabel:"3 августа", deliverable:"",
+    tasks:[
+      {id:"t1", title:"Анализ внутренних сценариев ВкусВилл", desc:"Продуктовая и коммерческая логика категории, текущий ассортимент, покупательские сегменты, каналы, производственные возможности и ограничения ВкусВилла."},
+      {id:"t2", title:"Формализация трёх сценариев", desc:"Использование естественного нутриентного состава; добавление натуральных функциональных ингредиентов; точечное обогащение премиксами."},
+      {id:"t3", title:"Критерии применимости моделей", desc:"Потребительская привлекательность, соответствие бренду, коммерческий потенциал, ассортиментная совместимость, технологическая, экономическая и регуляторная реализуемость."},
+      {id:"t4", title:"Сопоставление моделей со сценариями", desc:"Сопоставить 4–6 мировых продуктовых моделей с тремя сценариями ВкусВилла."},
+      {id:"t5", title:"Приоритизация моделей", desc:"Выделить модели, которые можно масштабировать, проверить пилотом, направить на дополнительную технологическую/потребительскую проверку либо отложить."},
+      {id:"t6", title:"Гипотезы для тестирования", desc:"Сформировать приоритетные направления и перечень гипотез для дальнейшего тестирования."}
+    ],
+    results:[
+      {id:"r1", title:"Матрица применимости моделей", desc:"Таблица, связывающая мировые модели с тремя сценариями клиента и показывающая риски."}
+    ]
+  }
+];
+
+const STATUS_LABELS = {
+  not_started:"Не начато",
+  in_progress:"В работе",
+  review:"На проверке",
+  done:"Готово"
+};
+
+const DEADLINE_TOOLTIP = "Сроки работ ориентировочные и могут иметь погрешность в 2-3 дня в случае, если команда получит комментарии от руководителя направления аналитики по доработке материалов. Указанные сроки не включают доработки и период согласования материалов с Заказчиком";
+
+/* ======================= ХРАНИЛИЩЕ ======================= */
+// Статусы теперь хранятся на уровне каждой подзадачи (ключ "s1_t1"),
+// а не на уровне этапа целиком — это и даёт декомпозицию на карточки.
+const STORAGE_KEY = "vv_func_food_dashboard_v2";
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return { taskStatus:{}, taskStatusTs:{}, updatedAt:null };
+}
+function ensureStateDefaults(s){
+  if(!s.taskStatusTs) s.taskStatusTs = {};
+  STAGES.forEach(stage=>{
+    stage.tasks.forEach(t=>{
+      const key = stage.id+"_"+t.id;
+      if(!s.taskStatus[key]) s.taskStatus[key] = "not_started";
+    });
+  });
+  return s;
+}
+
+let state = ensureStateDefaults(loadState());
+
+/* ======================= ОБЩИЙ ДОСТУП (SHARED SYNC) ======================= */
+// Дашборд — это один статичный HTML-файл без собственного бэкенда, поэтому для
+// «видимости изменений для всех» используется бесплатное анонимное JSON-хранилище
+// jsonblob.com: id хранимого блока передаётся в URL параметром ?sync=<id>.
+// Каждое изменение сохраняется локально сразу (мгновенный отклик интерфейса),
+// а затем «в фоне» подмешивается в общее хранилище (merge, без перезаписи чужих правок).
+const SYNC_PARAM = "sync";
+const SYNC_API = "https://jsonblob.com/api/jsonBlob/";
+
+function getSyncIdFromUrl(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    return params.get(SYNC_PARAM) || null;
+  }catch(e){ return null; }
+}
+
+let SYNC_ID = getSyncIdFromUrl();
+let syncInFlight = false;
+let syncOk = null; // null = ещё не пробовали, true/false = результат последней попытки
+
+async function fetchRemoteState(){
+  if(!SYNC_ID) return null;
+  const res = await fetch(SYNC_API + SYNC_ID, { headers:{ "Accept":"application/json" } });
+  if(!res.ok) throw new Error("fetch failed: " + res.status);
+  return await res.json();
+}
+
+async function pushRemoteState(payload){
+  if(!SYNC_ID) return null;
+  const res = await fetch(SYNC_API + SYNC_ID, {
+    method:"PUT",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify(payload)
+  });
+  if(!res.ok) throw new Error("push failed: " + res.status);
+  return true;
+}
+
+async function createRemoteBlob(initial){
+  const res = await fetch("https://jsonblob.com/api/jsonBlob", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+    body: JSON.stringify(initial)
+  });
+  if(!res.ok) throw new Error("create failed: " + res.status);
+  const loc = res.headers.get("Location") || res.headers.get("location");
+  if(!loc) throw new Error("no Location header returned");
+  const parts = loc.split("/");
+  return parts[parts.length-1];
+}
+
+// Объединяет удалённое (remote) и локальное (local) состояние без разрушения чужих
+// изменений. Статус каждой задачи хранит собственную метку времени последнего
+// изменения (taskStatusTs) — побеждает та версия, где эта метка более свежая, а не
+// произвольно "локальная", иначе чужие изменения статусов, не тронутых на этом
+// устройстве, никогда бы не подмешивались (локальное состояние всегда содержит
+// значение по умолчанию для каждой задачи).
+function mergeStates(remote, local){
+  const merged = { taskStatus:{}, taskStatusTs:{}, updatedAt: local.updatedAt };
+  const rTsMap = remote.taskStatusTs || {};
+  const lTsMap = local.taskStatusTs || {};
+  const allKeys = new Set([...Object.keys(remote.taskStatus||{}), ...Object.keys(local.taskStatus||{})]);
+  allKeys.forEach(key=>{
+    const rTs = rTsMap[key] || 0;
+    const lTs = lTsMap[key] || 0;
+    const rVal = (remote.taskStatus||{})[key];
+    const lVal = (local.taskStatus||{})[key];
+    if(lTs >= rTs){
+      merged.taskStatus[key] = lVal !== undefined ? lVal : rVal;
+    } else {
+      merged.taskStatus[key] = rVal !== undefined ? rVal : lVal;
+    }
+    merged.taskStatusTs[key] = Math.max(rTs, lTs);
+  });
+  return ensureStateDefaults(merged);
+}
+
+function updateSyncUI(ok){
+  syncOk = ok===undefined ? syncOk : ok;
+  const pill = document.getElementById("syncPill");
+  const pillText = document.getElementById("syncPillText");
+  const btnSync = document.getElementById("btnSync");
+  const btnReset = document.getElementById("btnReset");
+  if(!SYNC_ID){
+    pill.hidden = true;
+    btnSync.textContent = "Включить общий доступ";
+    btnSync.title = "Включить общий доступ к статусам задач";
+    btnReset.textContent = "Сброс";
+    btnReset.title = "Сбросить все изменения";
+    return;
+  }
+  pill.hidden = false;
+  if(syncOk===false){
+    pill.classList.add("offline");
+    pillText.textContent = "Нет связи с общим хранилищем";
+  } else {
+    pill.classList.remove("offline");
+    pillText.textContent = "Общий доступ включён";
+  }
+  btnSync.textContent = "Скопировать ссылку";
+  btnSync.title = "Показать / скопировать общую ссылку на дашборд";
+  btnReset.textContent = "Обновить";
+  btnReset.title = "Обновить статусы задач из общего хранилища";
+}
+
+async function syncPush(){
+  if(!SYNC_ID || syncInFlight) return;
+  syncInFlight = true;
+  try{
+    const remote = await fetchRemoteState();
+    const merged = mergeStates(remote || {taskStatus:{}}, state);
+    await pushRemoteState(merged);
+    state = merged;
+    saveLocal();
+    updateSyncUI(true);
+  }catch(e){
+    updateSyncUI(false);
+  }finally{
+    syncInFlight = false;
+  }
+}
+
+async function syncPull(){
+  if(!SYNC_ID) return false;
+  try{
+    const remote = await fetchRemoteState();
+    if(!remote) { updateSyncUI(false); return false; }
+    const merged = mergeStates(remote, state);
+    const changed = JSON.stringify(merged) !== JSON.stringify(state);
+    state = merged;
+    saveLocal();
+    updateSyncUI(true);
+    return changed;
+  }catch(e){
+    updateSyncUI(false);
+    return false;
+  }
+}
+
+function saveLocal(){
+  state.updatedAt = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  document.getElementById("footUpdated").textContent = "Обновлено: " + formatDateTime(new Date());
+}
+
+function saveState(showToast){
+  saveLocal();
+  if(showToast) showSavedToast();
+  syncPush();
+}
+
+let toastTimer;
+function showSavedToast(){
+  const t = document.getElementById("toast");
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 1600);
+}
+
+function formatDateTime(d){
+  return d.toLocaleString("ru-RU",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"});
+}
+function formatDateShort(d){
+  return d.toLocaleDateString("ru-RU",{day:"numeric",month:"long"});
+}
+
+/* ======================= АГРЕГАЦИЯ СТАТУСОВ ======================= */
+function taskKey(stage, task){ return stage.id+"_"+task.id; }
+function taskStatus(stage, task){ return state.taskStatus[taskKey(stage,task)] || "not_started"; }
+
+// Статус этапа целиком — производный от статусов его подзадач: все готовы -> "готово",
+// хотя бы одна начата -> "в работе", иначе -> "не начато".
+function stageStatus(stage){
+  const list = stage.tasks.map(t=>taskStatus(stage,t));
+  if(list.every(s=>s==="done")) return "done";
+  if(list.some(s=>s!=="not_started")) return "in_progress";
+  return "not_started";
+}
+
+function stageProgress(stage){
+  const list = stage.tasks.map(t=>taskStatus(stage,t));
+  const done = list.filter(s=>s==="done").length;
+  return {done, total:list.length};
+}
+
+/* ======================= РЕНДЕР ======================= */
+function dueInfo(stage){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const end = new Date(stage.end+"T00:00:00");
+  const diffDays = Math.round((end-today)/86400000);
+  const status = stageStatus(stage);
+  if(status==="done") return {cls:"ok", text:"Готово"};
+  if(diffDays < 0) return {cls:"late", text:"Просрочено на "+Math.abs(diffDays)+" дн."};
+  if(diffDays === 0) return {cls:"warn", text:"Дедлайн сегодня"};
+  if(diffDays <= 2) return {cls:"warn", text:"Осталось "+diffDays+" дн."};
+  return {cls:"ok", text:"Осталось "+diffDays+" дн."};
+}
+
+function renderTimeline(){
+  // Компактная доска: одна колонка = один этап (у этапов уже непересекающиеся периоды),
+  // карточка показывает только статус, короткое описание и период — без Ганта и длинных списков.
+  const track = document.getElementById("timelineTrack");
+  const today = new Date(); today.setHours(0,0,0,0);
+  let html = "";
+  STAGES.forEach(s=>{
+    const status = stageStatus(s);
+    const st = new Date(s.start+"T00:00:00");
+    const en = new Date(s.end+"T00:00:00");
+    const isToday = today>=st && today<=en;
+    html += `
+    <div class="tl-col">
+      <div class="tl-col-head">
+        <span class="tl-col-badge${isToday?" today":""}">${isToday?"сегодня":"Этап "+s.num}</span>
+      </div>
+      <div class="tl-card${isToday?" today":""}" data-stage="${s.id}" tabindex="0" role="button">
+        <span class="tl-status-pill status-${status}">${STATUS_LABELS[status]}</span>
+        <div class="tl-title">${s.title}</div>
+        ${s.short ? `<div class="tl-desc">${s.short}</div>` : ""}
+        ${s.deliverable ? `<span class="tl-tag">${s.deliverable}</span>` : ""}
+        <div class="tl-foot">
+          <span class="tl-range" title="${DEADLINE_TOOLTIP}">${s.dateLabel}</span>
+        </div>
+      </div>
+    </div>`;
+  });
+  track.innerHTML = html;
+  track.querySelectorAll(".tl-card").forEach(el=>{
+    el.addEventListener("click", ()=>openStageModal(el.dataset.stage));
+    el.addEventListener("keydown", e=>{
+      if(e.key==="Enter" || e.key===" "){ e.preventDefault(); openStageModal(el.dataset.stage); }
+    });
+  });
+}
+
+function taskBubbleHtml(stage, task){
+  const key = taskKey(stage, task);
+  const status = taskStatus(stage, task);
+  return `
+    <div class="bubble" data-task="${key}">
+      <button type="button" class="bubble-head">
+        <span class="bubble-dot status-${status}"></span>
+        <span class="bubble-title">${task.title}</span>
+        <span class="bubble-chevron">⌄</span>
+      </button>
+      <div class="bubble-body" hidden>
+        <div class="bubble-row" title="${DEADLINE_TOOLTIP}"><b>Сроки:</b> ${stage.dateLabel}</div>
+        <div class="bubble-desc">${task.desc}</div>
+        <div class="bubble-row"><b>Статус:</b>
+          <select class="status-select bubble-status status-${status}" data-task="${key}">
+            ${Object.entries(STATUS_LABELS).map(([k,v])=>`<option value="${k}" ${k===status?"selected":""}>${v}</option>`).join("")}
+          </select>
+        </div>
+      </div>
+    </div>`;
+}
+
+function resultBubbleHtml(stage, result){
+  return `
+    <div class="bubble bubble-result">
+      <button type="button" class="bubble-head">
+        <span class="bubble-title">${result.title}</span>
+        <span class="bubble-chevron">⌄</span>
+      </button>
+      <div class="bubble-body" hidden>
+        <div class="bubble-desc">${result.desc}</div>
+      </div>
+    </div>`;
+}
+
+/* ======================= МОДАЛЬНОЕ ОКНО ДЕТАЛИЗАЦИИ ЭТАПА ======================= */
+// Главный экран показывает только таймлайн; полная декомпозиция задач/результатов
+// открывается во всплывающем окне по клику на карточку этапа.
+
+function stageDetailHtml(stage){
+  const due = dueInfo(stage);
+  const progress = stageProgress(stage);
+  return `
+    <div class="stage-head">
+      <div class="stage-eyebrow">Этап ${stage.num} из ${STAGES.length}</div>
+      <div class="stage-title-row">
+        <h3 class="stage-title">${stage.title}</h3>
+        <span class="pill">${progress.done}/${progress.total} задач готово</span>
+      </div>
+      <div class="stage-meta">
+        <span class="pill date" title="${DEADLINE_TOOLTIP}">${stage.dateLabel}</span>
+        <span class="pill due ${due.cls}" title="${DEADLINE_TOOLTIP}">${due.text}</span>
+        ${stage.deliverable ? `<span class="pill">${stage.deliverable}</span>` : ""}
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="cols">
+        <div class="col tasks">
+          <h4>Задачи</h4>
+          <div class="bubble-list">${stage.tasks.map(t=>taskBubbleHtml(stage,t)).join("")}</div>
+        </div>
+        <div class="col results">
+          <h4>Результаты этапа</h4>
+          <div class="bubble-list">${stage.results.map(r=>resultBubbleHtml(stage,r)).join("")}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function bindStageDetailEvents(root, stage){
+  // bubble expand/collapse (задачи и результаты)
+  root.querySelectorAll(".bubble-head").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const bubble = btn.closest(".bubble");
+      const body = bubble.querySelector(".bubble-body");
+      const willOpen = bubble.classList.contains("open") ? false : true;
+      bubble.classList.toggle("open", willOpen);
+      body.hidden = !willOpen;
+    });
+  });
+  // bind per-task status selects
+  root.querySelectorAll(".bubble-status").forEach(sel=>{
+    sel.addEventListener("change", e=>{
+      const key = e.target.dataset.task;
+      state.taskStatus[key] = e.target.value;
+      state.taskStatusTs[key] = Date.now();
+      e.target.className = "status-select bubble-status status-"+e.target.value;
+      const bubble = e.target.closest(".bubble");
+      const dot = bubble.querySelector(".bubble-dot");
+      if(dot) dot.className = "bubble-dot status-"+e.target.value;
+      saveState(true);
+      renderTimeline();
+      // точечно обновляем пилюли внутри модалки, не сворачивая открытые карточки
+      const due = dueInfo(stage);
+      const duePill = root.querySelector(".pill.due");
+      if(duePill){ duePill.className = "pill due "+due.cls; duePill.textContent = due.text; }
+      const progress = stageProgress(stage);
+      const progressPill = root.querySelector(".stage-title-row .pill");
+      if(progressPill){ progressPill.textContent = `${progress.done}/${progress.total} задач готово`; }
+    });
+  });
+}
+
+function openStageModal(stageId){
+  const stage = STAGES.find(s=>s.id===stageId);
+  if(!stage) return;
+  const modalBody = document.getElementById("modalBody");
+  modalBody.innerHTML = stageDetailHtml(stage);
+  bindStageDetailEvents(modalBody, stage);
+  document.getElementById("stageModal").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closeStageModal(){
+  document.getElementById("stageModal").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function escapeHtml(str){
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/* ======================= ЭКСПОРТ / ИМПОРТ / ПЕЧАТЬ / СБРОС ======================= */
+document.getElementById("btnExport").addEventListener("click", ()=>{
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "vkusvill-dashboard-data.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById("btnImport").addEventListener("click", ()=>{
+  document.getElementById("fileImport").click();
+});
+document.getElementById("fileImport").addEventListener("change", e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev=>{
+    try{
+      const imported = JSON.parse(ev.target.result);
+      if(imported.taskStatus){
+        state = ensureStateDefaults(imported);
+        saveState(true);
+        renderAll();
+      } else {
+        alert("Файл не похож на экспортированные данные дашборда.");
+      }
+    }catch(err){
+      alert("Не удалось прочитать файл: " + err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+document.getElementById("btnPrint").addEventListener("click", ()=>window.print());
+
+document.getElementById("btnReset").addEventListener("click", async ()=>{
+  if(SYNC_ID){
+    if(confirm("Обновить статусы задач из общего хранилища? Несинхронизированные локальные изменения на этом устройстве будут заменены общими данными.")){
+      closeStageModal();
+      await syncPull();
+      renderAll();
+    }
+    return;
+  }
+  if(confirm("Сбросить все статусы задач на этом устройстве? Действие необратимо.")){
+    localStorage.removeItem(STORAGE_KEY);
+    state = ensureStateDefaults(loadState());
+    saveState(true);
+    closeStageModal();
+    renderAll();
+  }
+});
+
+document.getElementById("btnSync").addEventListener("click", async ()=>{
+  if(!SYNC_ID){
+    const btn = document.getElementById("btnSync");
+    btn.disabled = true;
+    btn.textContent = "Включаем…";
+    try{
+      const id = await createRemoteBlob(state);
+      SYNC_ID = id;
+      const url = new URL(window.location.href);
+      url.searchParams.set(SYNC_PARAM, id);
+      history.replaceState(null, "", url.toString());
+      updateSyncUI(true);
+      try{ await navigator.clipboard.writeText(url.toString()); }catch(e){}
+      window.prompt("Общий доступ включён. Отправьте эту ссылку клиенту и команде — у всех, кто её откроет, статусы задач будут общими:", url.toString());
+    }catch(e){
+      alert("Не удалось включить общий доступ. Проверьте подключение к интернету и попробуйте ещё раз.");
+      btn.disabled = false;
+      updateSyncUI(false);
+    }
+    return;
+  }
+  const url = window.location.href;
+  try{ await navigator.clipboard.writeText(url); }catch(e){}
+  window.prompt("Общая ссылка на дашборд (отправьте её всем, кто должен видеть общие статусы задач):", url);
+});
+
+document.getElementById("modalClose").addEventListener("click", closeStageModal);
+document.getElementById("stageModal").addEventListener("click", e=>{
+  if(e.target.id === "stageModal") closeStageModal();
+});
+document.addEventListener("keydown", e=>{
+  if(e.key === "Escape") closeStageModal();
+});
+
+/* ======================= INIT ======================= */
+function renderAll(){
+  renderTimeline();
+  document.getElementById("footUpdated").textContent = state.updatedAt ? "Обновлено: "+formatDateTime(new Date(state.updatedAt)) : "Обновлено только что";
+}
+renderAll();
+updateSyncUI();
+if(SYNC_ID){
+  (async ()=>{
+    await syncPull();
+    renderAll();
+  })();
+  setInterval(async ()=>{
+    const changed = await syncPull();
+    if(changed){ renderTimeline(); }
+  }, 20000);
+}
+
+</script>
+</body>
+</html>
